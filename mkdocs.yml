@@ -1,0 +1,4 @@
+site_name: UCBPH Workplace
+site_url: https://mattmacneil.github.io/workplace-mkdocs/
+theme:
+  name: material
