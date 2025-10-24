@@ -1,13 +1,15 @@
-name: Deploy MkDocs site
+name: Deploy MkDocs Site
 
 on:
   push:
     branches:
-      - main  # change if your default branch is different
+      - main  # trigger on main branch
 
 jobs:
-  build-deploy:
+  deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # allow pushing to gh-pages
 
     steps:
     - name: Checkout repository
@@ -20,21 +22,15 @@ jobs:
 
     - name: Install dependencies
       run: |
-        python -m venv .venv
-        source .venv/bin/activate
         python -m pip install --upgrade pip
         pip install mkdocs-material
 
-    - name: Build site
-      run: |
-        source .venv/bin/activate
-        mkdocs build --site-dir site
+    - name: Build MkDocs site
+      run: mkdocs build --site-dir site
 
     - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v6
+      uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./site
-        # These options ensure the gh-pages branch is fully replaced
-        keep_files: false
-        force_orphan: true
+        publish_branch: gh-pages
