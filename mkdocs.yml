@@ -3,6 +3,6 @@ site_url: https://mattmacneil.github.io/workplace-mkdocs/
 theme:
   name: material
   font:
-    text: Roboto Mono
+    text: Roboto
   palette:
     scheme: slate
